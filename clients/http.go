@@ -9,12 +9,12 @@ import (
 	"tasker-client-example/pb"
 )
 
-type HttpClient struct {
+type HttpTest struct {
 	Client  http.Client
 	BaseURL string
 }
 
-func (hc *HttpClient) TestMethods(initialTask models.Task) (bool, error) {
+func (hc *HttpTest) TestMethods(initialTask models.Task) (bool, error) {
 	task := initialTask
 
 	// CREATE TASK

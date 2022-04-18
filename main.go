@@ -40,7 +40,7 @@ func main() {
 	httpClient := http.Client{}
 
 	grpcTester := taskerClients.GrpcTest{GrpcClient: grpcClient, Ctx: context.Background()}
-	httpTester := taskerClients.HttpClient{Client: httpClient, BaseURL: consts.HTTPBaseUrl}
+	httpTester := taskerClients.HttpTest{Client: httpClient, BaseURL: consts.HTTPBaseUrl}
 
 	MakeTests("gRPC", &grpcTester)
 	MakeTests("HTTP", &httpTester)

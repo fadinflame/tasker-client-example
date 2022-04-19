@@ -2,6 +2,7 @@ package clients
 
 import (
 	"context"
+	pbWrapper "google.golang.org/protobuf/types/known/wrapperspb"
 	"tasker-client-example/models"
 	"tasker-client-example/pb"
 )
@@ -20,7 +21,7 @@ func (gt *GrpcTest) TestMethods(initialTask models.Task) (bool, error) {
 	}
 	PrintMethodSucceed("Task Create", taskCreateResp.Success, "gRPC")
 
-	taskGetResp, err := gt.GrpcClient.GetTask(gt.Ctx, &pb.TaskGetRequest{TaskId: taskCreateResp.TaskId})
+	taskGetResp, err := gt.GrpcClient.GetTask(gt.Ctx, &pbWrapper.Int64Value{Value: taskCreateResp.TaskId})
 	if err != nil {
 		return false, err
 	}
@@ -37,11 +38,11 @@ func (gt *GrpcTest) TestMethods(initialTask models.Task) (bool, error) {
 	}
 	PrintMethodSucceed("Task Update", taskUpdateResp.Success, "gRPC")
 
-	taskDeleteResp, err := gt.GrpcClient.DeleteTask(gt.Ctx, &pb.TaskDeleteRequest{TaskId: taskCreateResp.TaskId})
+	taskDeleteResp, err := gt.GrpcClient.DeleteTask(gt.Ctx, &pbWrapper.Int64Value{Value: taskCreateResp.TaskId})
 	if err != nil {
 		return false, err
 	}
-	PrintMethodSucceed("Task Delete", taskDeleteResp.Success, "gRPC")
+	PrintMethodSucceed("Task Delete", taskDeleteResp.Value, "gRPC")
 
 	return true, nil
 }

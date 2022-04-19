@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	pbWrapper "google.golang.org/protobuf/types/known/wrapperspb"
 	"net/http"
 	"tasker-client-example/models"
 	"tasker-client-example/pb"
@@ -76,11 +77,11 @@ func (hc *HttpTest) TestMethods(initialTask models.Task) (bool, error) {
 		return false, err
 	}
 	defer resp.Body.Close()
-	deleteResp := pb.TaskDeleteResponse{}
+	deleteResp := pbWrapper.BoolValue{}
 	if err := json.NewDecoder(resp.Body).Decode(&deleteResp); err != nil {
 		return false, err
 	}
-	PrintMethodSucceed("Task Delete", deleteResp.Success, "HTTP")
+	PrintMethodSucceed("Task Delete", deleteResp.Value, "HTTP")
 
 	return true, nil
 }
